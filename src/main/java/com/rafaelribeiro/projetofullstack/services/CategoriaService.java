@@ -1,6 +1,7 @@
 package com.rafaelribeiro.projetofullstack.services;
 
 import com.rafaelribeiro.projetofullstack.entities.Categoria;
+import com.rafaelribeiro.projetofullstack.exceptions.ObjectNotFoundException;
 import com.rafaelribeiro.projetofullstack.repositories.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class CategoriaService {
 
 	public Categoria buscar(Integer id){
 		Optional<Categoria> obj = repository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 
 }
